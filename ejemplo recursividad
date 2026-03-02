@@ -1,0 +1,105 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int factorial(int n);
+int convertir(string num, int base, int n);
+int sumaDigitos(int n);
+
+int main() {
+
+    int opcion;
+    int numero;
+    string numBase;
+    int base;
+
+    do {
+        system("cls");
+        cout << "\n===== MENU =====\n";
+        cout << "1. Calcular factorial\n";
+        cout << "2. Convertir numero de base r a decimal\n";
+        cout << "3. Sumar digitos de un numero\n";
+        cout << "4. Salir\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+
+        switch (opcion) {
+
+        case 1:
+            cout << "Ingrese un numero entero: ";
+            cin >> numero;
+
+            if (numero < 0)
+                cout << "No existe factorial para negativos.\n";
+            else
+                cout << "El factorial de " << numero
+                << " es: " << factorial(numero) << endl;
+            break;
+
+        case 2:
+            cout << "Ingrese el numero: ";
+            cin >> numBase;
+
+            cout << "Ingrese la base: ";
+            cin >> base;
+
+            cout << "En decimal es: "
+                << convertir(numBase, base, numBase.length())
+                << endl;
+            break;
+
+        case 3:
+            cout << "Ingrese un numero: ";
+            cin >> numero;
+
+            if (numero < 0)
+                numero = -numero;
+
+            cout << "La suma de sus digitos es: "
+                << sumaDigitos(numero) << endl;
+            break;
+
+        case 4:
+            cout << "Saliendo del programa...\n";
+            break;
+
+        default:
+            cout << "Opcion invalida.\n";
+        }
+        system("pause");
+        system("cls");
+    } while (opcion != 4);
+
+    return 0;
+}
+
+int factorial(int n) {
+    if (n == 0 || n == 1)
+        return 1;
+    else
+        return n * factorial(n - 1);
+}
+
+int convertir(string num, int base, int n) {
+
+    if (n == 0)
+        return 0;
+    else {
+        int digito;
+
+        if (num[n - 1] >= '0' && num[n - 1] <= '9')
+            digito = num[n - 1] - '0';
+        else
+            digito = num[n - 1] - 'A' + 10;
+
+        return convertir(num, base, n - 1) * base + digito;
+    }
+}
+
+int sumaDigitos(int n) {
+    if (n == 0)
+        return 0;
+    else
+        return (n % 10) + sumaDigitos(n / 10);
+}
